@@ -1,10 +1,17 @@
-import { getCriminals, useCriminals } from './criminals/CriminalProvider.js'
+import { getCriminals, useCriminals } from './CriminalProvider.js'
+import { CriminalHTML } from './Criminal.js'
 
 export const CriminalList = () => {
-    getCriminals().then(
-        /*
-            Now that you have the data, what
-            component should be rendered?
-        */
+    getCriminals()
+        .then(() => {
+            const criminalArray = useCriminals()
+            addCriminalsToDOM(criminalArray)
+        }
     )
+}
+
+const addCriminalsToDOM = arrayOfCriminals => {
+    const domElement = document.querySelector(".criminalsContainer")
+    const HTMLArray = arrayOfCriminals.map(criminal => CriminalHTML(criminal))
+    domElement.innerHTML = HTMLArray.join("");
 }
