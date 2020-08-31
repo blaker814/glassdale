@@ -4,5 +4,5 @@ import { getConvictions } from "./convictions/ConvictionProvider.js"
 import { ConvictionSelect } from "./convictions/ConvictionSelect.js"
 
 // OfficerList();
-// CriminalList();
-getConvictions().then(ConvictionSelect)
+CriminalList();
+getConvictions().then(() => ConvictionSelect())
