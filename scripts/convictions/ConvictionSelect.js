@@ -10,6 +10,11 @@ const contentTarget = document.querySelector(".filters__crime")
 export const ConvictionSelect = () => {
     // Get all convictions from application state
     const convictions = useConvictions()
+    const sortedConvictions = [];
+    convictions.map(conviction => {
+        sortedConvictions.push(conviction.name)
+        sortedConvictions.sort()
+    })
 
     const render = convictionsCollection => {
         /*
@@ -23,7 +28,7 @@ export const ConvictionSelect = () => {
                 ${
                     convictionsCollection.map(crime => {
                         return `
-                            <option value="${crime.id}">${crime.name}</option>
+                            <option value="${crime}">${crime}</option>
                         `
                     })
                 }
@@ -31,5 +36,5 @@ export const ConvictionSelect = () => {
         `
     }
 
-    render(convictions)
+    render(sortedConvictions)
 }
