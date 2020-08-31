@@ -21,7 +21,11 @@ export const ConvictionSelect = () => {
             <select class="dropdown" id="crimeSelect">
                 <option value="0">Please select a crime...</option>
                 ${
-                    something.map()
+                    convictions.map(crime => {
+                        return `
+                            <option value="${crime.id}">${crime.name}</option>
+                        `
+                    })
                 }
             </select>
         `
