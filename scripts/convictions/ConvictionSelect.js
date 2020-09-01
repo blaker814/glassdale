@@ -10,31 +10,36 @@ const contentTarget = document.querySelector(".filters__crime")
 export const ConvictionSelect = () => {
     // Get all convictions from application state
     const convictions = useConvictions()
-    const sortedConvictions = [];
-    convictions.map(conviction => {
-        sortedConvictions.push(conviction.name)
-        sortedConvictions.sort()
-    })
-
-    const render = convictionsCollection => {
-        /*
-            Use interpolation here to invoke the map() method on
-            the convictionsCollection to generate the option elements.
-            Look back at the example provided above.
-        */
-        contentTarget.innerHTML = `
-            <select class="dropdown" id="crimeSelect">
-                <option value="0">Please select a crime...</option>
-                ${
-                    convictionsCollection.map(crime => {
-                        return `
-                            <option value="${crime}">${crime}</option>
-                        `
-                    })
-                }
-            </select>
-        `
-    }
-
-    render(sortedConvictions)
+    convictions.sort(compare);
+    render(convictions)
 }
+
+const render = convictionsCollection => {
+    
+    contentTarget.innerHTML = `
+        <select class="dropdown" id="crimeSelect">
+            <option value="0">Please select a crime...</option>
+            ${
+                convictionsCollection.map(crimeObj => {
+                    return `
+                        <option value="crime-${crimeObj.id}">${crimeObj.name}</option>
+                    `
+                })
+            }
+        </select>
+    `
+}
+
+const compare = (a, b) => {
+    // Use toUpperCase() to ignore character casing
+    const crimeA = a.name.toUpperCase();
+    const crimeB = b.name.toUpperCase();
+  
+    let comparison = 0;
+    if (crimeA > crimeB) {
+      comparison = 1;
+    } else if (crimeA < crimeB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
