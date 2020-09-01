@@ -6,7 +6,7 @@ const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("crimeChosen", event => {
     // You remembered to add the id of the crime to the event detail, right?
-    if ("crimeId" in event.detail) {
+    if ("crimeThatWasChosen" in event.detail) {
         /*
             Filter the criminals application state down to the people that committed the crime
         */
