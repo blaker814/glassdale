@@ -37,7 +37,7 @@ eventHub.addEventListener("click", clickEvent => {
         const newNote = {
             noteText: noteInput.value
         }
-        noteInput = ""
+        noteInput.value = ""
         // Change API state and application state
         saveNote(newNote)
     }
