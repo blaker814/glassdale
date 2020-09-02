@@ -10,5 +10,3 @@ NoteForm();
 CriminalList();
 ConvictionSelect();
 OfficerSelect();
-
-console.log(document.querySelector("#note-text"))

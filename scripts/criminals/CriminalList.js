@@ -5,35 +5,24 @@ const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("crimeChosen", event => {
     // You remembered to add the id of the crime to the event detail, right?
-    if ("crimeThatWasChosen" in event.detail && event.detail.crimeThatWasChosen !== "0") {
-        /*
-            Filter the criminals application state down to the people that committed the crime
-        */
-       getCriminals().then(() => {
-        const criminalArray = useCriminals()
-        const matchingCriminals = criminalArray.filter(criminal => {
-            return (criminal.conviction === event.detail.crimeThatWasChosen)
+    if (event.detail.crimeThatWasChosen !== "0") {
+        const matchingCriminals = useCriminals().filter(criminal => {
+            return criminal.conviction === event.detail.crimeThatWasChosen
         })
-
         addCriminalsToDOM(matchingCriminals)
-    })
     } else {
-        CriminalList();
+        addCriminalsToDOM(useCriminals());
     }
 })
 
 eventHub.addEventListener("officerSelected", event => {
-    if ("officer" in event.detail && event.detail.officer !== "0") {
-        getCriminals()
-            .then(() => {
-            const criminalArray = useCriminals()
-            const matchingCriminals = criminalArray.filter(criminal => {
-                return (criminal.arrestingOfficer === event.detail.officer)
-            })
-            addCriminalsToDOM(matchingCriminals)
+    if (event.detail.officer !== "0") {
+        const matchingCriminals = useCriminals().filter(criminal => {
+            return (criminal.arrestingOfficer === event.detail.officer)
         })
+        addCriminalsToDOM(matchingCriminals)
     } else {
-        CriminalList();
+        addCriminalsToDOM(useCriminals());
 }
 })
 
