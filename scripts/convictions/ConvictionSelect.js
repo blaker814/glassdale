@@ -19,7 +19,7 @@ eventHub.addEventListener("change", event => {
         // Dispatch to event hub
         eventHub.dispatchEvent(customEvent)
     }
-})
+}) 
 
 export const ConvictionSelect = () => {
     // Get all convictions from application state

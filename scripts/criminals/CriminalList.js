@@ -1,13 +1,11 @@
 import { getCriminals, useCriminals } from './CriminalProvider.js'
 import { CriminalHTML } from './Criminal.js'
-import { getConvictions } from '../convictions/ConvictionProvider.js'
-import { useOfficers } from '../officers/OfficerProvider.js'
 
 const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("crimeChosen", event => {
     // You remembered to add the id of the crime to the event detail, right?
-    if ("crimeThatWasChosen" in event.detail) {
+    if ("crimeThatWasChosen" in event.detail && event.detail.crimeThatWasChosen !== "0") {
         /*
             Filter the criminals application state down to the people that committed the crime
         */
@@ -19,11 +17,13 @@ eventHub.addEventListener("crimeChosen", event => {
 
         addCriminalsToDOM(matchingCriminals)
     })
-    } 
+    } else {
+        CriminalList();
+    }
 })
 
 eventHub.addEventListener("officerSelected", event => {
-    if ("officer" in event.detail) {
+    if ("officer" in event.detail && event.detail.officer !== "0") {
         getCriminals()
             .then(() => {
             const criminalArray = useCriminals()
@@ -32,7 +32,9 @@ eventHub.addEventListener("officerSelected", event => {
             })
             addCriminalsToDOM(matchingCriminals)
         })
-    }
+    } else {
+        CriminalList();
+}
 })
 
 export const CriminalList = () => {
