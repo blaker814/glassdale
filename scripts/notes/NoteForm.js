@@ -17,7 +17,11 @@ eventHub.addEventListener("click", clickEvent => {
                 suspect: noteSuspect.value
             }
             saveNote(newNote)
-            .then(() => render(useCriminals()))
+            .then(() => {
+                const criminalsArray = useCriminals()
+                criminalsArray.sort(compare);
+                render(criminalsArray)
+            })
         } else {
             alert("Choose a suspect")
         }
