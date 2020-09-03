@@ -65,5 +65,8 @@ export const CriminalList = () => {
 const addCriminalsToDOM = arrayOfCriminals => {
     const domElement = document.querySelector(".criminalsContainer")
     const HTMLArray = arrayOfCriminals.map(criminal => CriminalHTML(criminal))
-    domElement.innerHTML = HTMLArray.join("");
+    domElement.innerHTML = `
+        <h2>Criminals</h2>
+        ${HTMLArray.join("")}
+    `
 }

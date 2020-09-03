@@ -13,5 +13,8 @@ export const OfficerList = () => {
 const addOfficersToDOM = arrayOfOfficers => {
     const domElement = document.querySelector(".officersContainer")
     let HTMLArray = arrayOfOfficers.map(officer => OfficerHTML(officer))
-    domElement.innerHTML = HTMLArray.join("")
+    domElement.innerHTML = `
+        <h2>Officers</h2>
+            ${HTMLArray.join("")}
+    `
 }

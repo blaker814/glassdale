@@ -40,7 +40,7 @@ const render = officersCollection => {
                     return `
                         <option value="${officerObj.name}">${officerObj.name}</option>
                     `
-                })
+                }).join("")
             }
         </select>
     `

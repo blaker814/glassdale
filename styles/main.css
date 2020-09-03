@@ -1,10 +1,16 @@
 .filter {
     margin-top: 1em;
-}.criminalsContainer {
+}
+.criminalsContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     font-size: small;
+}
+h2 { 
+    width: 100%;
+    font-size: x-large;
+    text-align: center;
 }
 .criminal-card {
     border: 1px dotted black;
@@ -12,9 +18,6 @@
     width: 27%;
     padding: 0 1em 1em 1em;
     height: auto;
-}
-.criminal-card h2 {
-    font-weight: normal;
 }
 .criminal-card p {
     margin:0;
