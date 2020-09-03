@@ -2,34 +2,61 @@ import { getCriminals, useCriminals } from './CriminalProvider.js'
 import { CriminalHTML } from './Criminal.js'
 
 const eventHub = document.querySelector(".container")
+let chosenCrime = "0";
+let chosenOfficer = "0";
+let criminalArray = [];
+let matchingCriminals = [];
 
 eventHub.addEventListener("crimeChosen", event => {
-    // You remembered to add the id of the crime to the event detail, right?
-    if (event.detail.crimeThatWasChosen !== "0") {
-        const matchingCriminals = useCriminals().filter(criminal => {
-            return criminal.conviction === event.detail.crimeThatWasChosen
+    chosenCrime = event.detail.crimeThatWasChosen;
+    if (chosenCrime !== "0" && chosenOfficer !== "0") {
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.conviction === chosenCrime 
+                && criminal.arrestingOfficer === chosenOfficer
+        })
+        addCriminalsToDOM(matchingCriminals)
+    } else if (chosenCrime !== "0" && chosenOfficer === "0") {
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.conviction === chosenCrime 
+        })
+        addCriminalsToDOM(matchingCriminals)
+    } else if (chosenCrime === "0" && chosenOfficer !== "0") {
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.arrestingOfficer === chosenOfficer
         })
         addCriminalsToDOM(matchingCriminals)
     } else {
-        addCriminalsToDOM(useCriminals());
+        addCriminalsToDOM(criminalArray);
     }
 })
 
 eventHub.addEventListener("officerSelected", event => {
-    if (event.detail.officer !== "0") {
-        const matchingCriminals = useCriminals().filter(criminal => {
-            return (criminal.arrestingOfficer === event.detail.officer)
+    chosenOfficer = event.detail.officer;
+    if (chosenOfficer !== "0" && chosenCrime !== "0") {
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.arrestingOfficer === chosenOfficer 
+                && criminal.conviction === chosenCrime
+        })
+        addCriminalsToDOM(matchingCriminals)
+    } else if (chosenOfficer !== "0" && chosenCrime === "0"){
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.arrestingOfficer === chosenOfficer 
+        })
+        addCriminalsToDOM(matchingCriminals)
+    } else if (chosenOfficer === "0" && chosenCrime !== "0"){
+        matchingCriminals = criminalArray.filter(criminal => {
+            return criminal.conviction === chosenCrime
         })
         addCriminalsToDOM(matchingCriminals)
     } else {
-        addCriminalsToDOM(useCriminals());
-}
+        addCriminalsToDOM(criminalArray);
+    }
 })
 
 export const CriminalList = () => {
     getCriminals()
         .then(() => {
-            const criminalArray = useCriminals()
+            criminalArray = useCriminals()
             addCriminalsToDOM(criminalArray)
         }
     )
