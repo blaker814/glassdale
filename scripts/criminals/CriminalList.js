@@ -77,7 +77,6 @@ const addCriminalsToDOM = arrayOfCriminals => {
     const HTMLArray = arrayOfCriminals.map(criminal => CriminalHTML(criminal))
     domElement.innerHTML = `
         <h2>Criminals</h2>
-        <button id="witnessBtn">Witness Statements</button>
         ${HTMLArray.join("")}
     `
 }

@@ -1,32 +1,12 @@
-let notes = [];
+let witnesses = [];
 
-const eventHub = document.querySelector(".container")
+export const useWitnesses = () => witnesses.slice()
 
-const dispatchStateChangeEvent = () => {
-    const noteStateChangedEvent = new CustomEvent("noteStateChanged")
-
-    eventHub.dispatchEvent(noteStateChangedEvent)
-}
-
-export const useNotes = () => notes.slice()
-
-export const getNotes = () => {
-    return fetch('http://localhost:8088/notes')
+export const getWitnesses = () => {
+    return fetch('https://criminals.glassdale.us/witnesses')
         .then(response => response.json())
-        .then(parsedNotes => {
-            notes = parsedNotes
+        .then(parsedWitnesses => {
+            witnesses = parsedWitnesses
         })
 
-}
-
-export const saveNote = note => {
-    return fetch('http://localhost:8088/notes', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(note)
-    })
-    .then(getNotes)
-    .then(dispatchStateChangeEvent)
 }

@@ -1,7 +1,8 @@
-export const OfficerHTML = officerObj => {
+export const WitnessHTML = witnessObj => {
     return `
-        <section id="officer-${officerObj.id}" class="officer-card">
-            <h3>${officerObj.name}</h3>
+        <section id="witness-${witnessObj.id}" class="witness-card">
+            <h3>${witnessObj.name}</h3>
+            <p>${witnessObj.statements}</p>
         </section>
     `
 }
