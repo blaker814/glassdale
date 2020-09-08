@@ -53,16 +53,6 @@ eventHub.addEventListener("officerSelected", event => {
     }
 })
 
-eventHub.addEventListener("click", clickEvent => {
-    if(clickEvent.target.textContent === "Associate Alibis") {
-        const contentTarget = document.querySelector(`#${clickEvent.target.id}`)
-        const [ btntag, criminalID ] = clickEvent.target.id.split("--")
-        criminalArray[parseInt(criminalID) - 1].known_associates.forEach(associate => {
-            alert(`Associate: ${associate.name}, Alibi: ${associate.alibi}`)
-        })
-    }
-})
-
 export const CriminalList = () => {
     getCriminals()
         .then(() => {
