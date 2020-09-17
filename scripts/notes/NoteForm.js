@@ -14,7 +14,7 @@ eventHub.addEventListener("click", clickEvent => {
             const newNote = {
                 noteText: noteInput.value,
                 date: Date.now(),
-                suspect: noteSuspect.value
+                suspectId: parseInt(noteSuspect.value)
             }
             saveNote(newNote)
             .then(() => {
@@ -43,7 +43,7 @@ const render = criminalArray => {
                     ${
                         criminalArray.map(criminalObj => {
                             return `
-                                <option value="${criminalObj.name}">${criminalObj.name}</option>
+                                <option value="${criminalObj.id}">${criminalObj.name}</option>
                             `
                         }).join("")
                     })
