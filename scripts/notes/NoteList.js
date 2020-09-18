@@ -1,5 +1,5 @@
 import { NoteHTML } from "./Note.js"
-import { useNotes, getNotes } from "./NoteProvider.js"
+import { useNotes, getNotes, deleteNote } from "./NoteProvider.js"
 import { getCriminals, useCriminals } from "../criminals/CriminalProvider.js"
 
 const eventHub = document.querySelector(".container")
@@ -8,6 +8,13 @@ eventHub.addEventListener("noteStateChanged", event => {
     const noteArray = useNotes();
     const suspectArray = useCriminals();
     addNotesToDOM(noteArray, suspectArray)
+})
+
+eventHub.addEventListener("click", clickEvent => {
+    if(clickEvent.target.id.startsWith("deleteNote--")) {
+        const [prefix, id] = event.target.id.split("--")
+        deleteNote(id)
+    }
 })
 
 export const NoteList = () => {
