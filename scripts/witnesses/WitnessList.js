@@ -1,6 +1,7 @@
 import { getWitnesses, useWitnesses } from "./WitnessDataProvider.js"
 import { WitnessHTML } from "./Witness.js"
 import { CriminalList } from "../criminals/CriminalList.js"
+import { DisplayFacilitiesButton } from "../facilities/DisplayFacilitiesButton.js"
 
 const eventHub = document.querySelector(".container")
 
@@ -24,29 +25,39 @@ const WitnessList = () => {
 
 export const makeWitnessBtn = () => {
     const btnPlacement = document.querySelector(".filters__witness");
-    btnPlacement.innerHTML += `
+    btnPlacement.innerHTML = `
     <div class="buttons">
-        <button type="button" id="witnessStatementsBtn">WitnessStatements</button>
+        <button type="button" id="witnessStatementsBtn">Show Witness Statements</button>
     </div>
     `
 }
 
 eventHub.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "witnessStatementsBtn") {
+    if(clickEvent.target.textContent === "Show Witness Statements") {
         const btn = document.querySelector(".buttons");
         btn.innerHTML = `
-            <button type="button" id="criminalsBtn">Criminals</button>
+            <button type="button" id="witnessStatementsBtn">Hide Witness Statements</button>
         `
         WitnessList();
+
+        const contentTarget = document.querySelector(".facility__button")
+        if (contentTarget.textContent === "Hide Facilities") {
+            DisplayFacilitiesButton()
+        }
     }
 })
 
 eventHub.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id === "criminalsBtn") {
+    if(clickEvent.target.textContent === "Hide Witness Statements") {
         const btn = document.querySelector(".buttons");
         btn.innerHTML = `
-            <button type="button" id="witnessStatementsBtn">Witness Statements</button>
+            <button type="button" id="witnessStatementsBtn">Show Witness Statements</button>
         `
         CriminalList();
+
+        const contentTarget = document.querySelector(".facility__button")
+        if (contentTarget.textContent === "Hide Facilities") {
+            DisplayFacilitiesButton()
+        }
     }
 })

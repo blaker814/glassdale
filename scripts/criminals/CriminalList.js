@@ -1,5 +1,8 @@
 import { getCriminals, useCriminals } from './CriminalProvider.js'
 import { CriminalHTML } from './Criminal.js'
+import { getFacilities, useFacilities } from '../facilities/FacilityProvider.js';
+import { getCriminalFacilities, useCriminalFacilities } from '../facilities/CriminalFacilityProvider.js';
+import { FacilityList } from '../facilities/FacilityList.js';
 
 const eventHub = document.querySelector(".container")
 let chosenCrime = "0";
@@ -53,20 +56,48 @@ eventHub.addEventListener("officerSelected", event => {
     }
 })
 
+eventHub.addEventListener("facilitiesButtonClicked", event => {
+    const contentTarget = document.querySelector(".facility__button")
+    if (contentTarget.textContent === "Show Facilities") {
+        FacilityList()
+    } else if (contentTarget.textContent === "Hide Facilities") {
+        CriminalList()
+    }
+})
+
 export const CriminalList = () => {
     getCriminals()
+        .then(getFacilities)
+        .then(getCriminalFacilities)
         .then(() => {
+
+            const facilities = useFacilities()
+            const crimFac = useCriminalFacilities()
             criminalArray = useCriminals()
-            addCriminalsToDOM(criminalArray)
+            addCriminalsToDOM(criminalArray, facilities, crimFac)
         }
     )
 }
 
-const addCriminalsToDOM = arrayOfCriminals => {
-    const domElement = document.querySelector(".criminalsContainer")
-    const HTMLArray = arrayOfCriminals.map(criminal => CriminalHTML(criminal))
-    domElement.innerHTML = `
-        <h2>Criminals</h2>
-        ${HTMLArray.join("")}
+const addCriminalsToDOM = (criminalsToRender, allFacilities, allRelationships) => {
+    // Step 1 - Iterate all criminals
+    const contentTarget = document.querySelector(".criminalsContainer")
+    contentTarget.innerHTML = `
+    <h2>Criminals</h2>
+    ${criminalsToRender.map(
+        criminalObject => {
+            // Step 2 - Filter all relationships to get only ones for this criminal
+            const facilityRelationshipsForThisCriminal = allRelationships.filter(cf => cf.criminalId === criminalObject.id)
+
+            // Step 3 - Convert the relationships to facilities with map()
+            const facilities = facilityRelationshipsForThisCriminal.map(cf => {
+                const matchingFacilityObject = allFacilities.find(facility => facility.id === cf.facilityId)
+                return matchingFacilityObject
+            })
+
+            // Must pass the matching facilities to the Criminal component
+            return CriminalHTML(criminalObject, facilities)
+        }
+    ).join("")}
     `
 }

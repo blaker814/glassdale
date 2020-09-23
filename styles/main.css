@@ -32,3 +32,13 @@ h2 {
 .witness-card p {
     margin:0;
 }
+.facility-card {
+    border: 1px dotted black;
+    margin-bottom: 1em;
+    width: 27%;
+    padding: 0 1em 1em 1em;
+    height: auto;
+}
+.facility-card p {
+    margin:0;
+}
