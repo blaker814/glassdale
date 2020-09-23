@@ -14,6 +14,7 @@ h2 {
 }
 .criminal-card {
     border: 1px dotted black;
+    background-color: goldenrod;
     margin-bottom: 1em;
     width: 27%;
     padding: 0 1em 1em 1em;
@@ -24,6 +25,7 @@ h2 {
 }
 .witness-card {
     border: 1px dotted black;
+    background-color: paleturquoise;
     margin-bottom: 1em;
     width: 27%;
     padding: 0 1em 1em 1em;
@@ -34,6 +36,7 @@ h2 {
 }
 .facility-card {
     border: 1px dotted black;
+    background-color: grey;
     margin-bottom: 1em;
     width: 27%;
     padding: 0 1em 1em 1em;
